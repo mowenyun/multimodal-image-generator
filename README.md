@@ -4,7 +4,7 @@ A small open-source CLI + GitHub Pages demo that generates images via the **poll
 
 - API base: https://gen.pollinations.ai
 - Powered by: https://pollinations.ai
-- Live demo (GitHub Pages): **(enable Pages to get URL)**
+- Live demo (GitHub Pages): https://mowenyun.github.io/multimodal-image-generator/
 
 > Tier submission notes:
 > - This app uses the pollinations.ai API.
