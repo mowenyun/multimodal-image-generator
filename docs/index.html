@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multimodal Image Generator (pollinations.ai)</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Multimodal Image Generator</h1>
+      <p class="sub">
+        Built with <a href="https://pollinations.ai" target="_blank" rel="noreferrer">pollinations.ai</a> · API: 
+        <a href="https://gen.pollinations.ai" target="_blank" rel="noreferrer">gen.pollinations.ai</a>
+      </p>
+    </header>
+
+    <section class="card">
+      <label>
+        Prompt
+        <textarea id="prompt" rows="4" placeholder="e.g. a cinematic portrait photo of a ginger cat, soft rim light"></textarea>
+      </label>
+
+      <div class="grid">
+        <label>
+          Model
+          <select id="model">
+            <option value="flux">flux</option>
+            <option value="zimage">zimage</option>
+            <option value="flux-2-dev">flux-2-dev</option>
+            <option value="imagen-4">imagen-4</option>
+            <option value="gptimage">gptimage</option>
+            <option value="klein">klein</option>
+          </select>
+        </label>
+
+        <label>
+          Width
+          <input id="width" type="number" min="256" step="64" value="1024" />
+        </label>
+
+        <label>
+          Height
+          <input id="height" type="number" min="256" step="64" value="1024" />
+        </label>
+
+        <label>
+          Seed (optional)
+          <input id="seed" type="number" placeholder="e.g. 123" />
+        </label>
+
+        <label>
+          Safe
+          <select id="safe">
+            <option value="">(default)</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="btnGenerate">Generate</button>
+        <button id="btnCopy" class="secondary" disabled>Copy image URL</button>
+        <a id="btnOpen" class="secondary" href="#" target="_blank" rel="noreferrer" aria-disabled="true">Open in new tab</a>
+        <a id="btnDownload" class="secondary" href="#" download aria-disabled="true">Download</a>
+      </div>
+
+      <p class="hint">
+        Tip: This demo uses the public image URL form. For higher reliability or private tiers, use the CLI with an API key.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="preview">
+        <div id="status" class="status">Idle</div>
+        <img id="img" alt="Generated" />
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Source on GitHub: <a id="repoLink" href="#" target="_blank" rel="noreferrer">multimodal-image-generator</a>
+      </p>
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

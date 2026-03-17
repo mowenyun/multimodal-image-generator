@@ -1,9 +1,10 @@
 # Multimodal Image Generator
 
-A small open-source CLI that generates images via the **pollinations.ai** API.
+A small open-source CLI + GitHub Pages demo that generates images via the **pollinations.ai** API.
 
 - API base: https://gen.pollinations.ai
 - Powered by: https://pollinations.ai
+- Live demo (GitHub Pages): **(enable Pages to get URL)**
 
 > Tier submission notes:
 > - This app uses the pollinations.ai API.
@@ -14,9 +15,13 @@ A small open-source CLI that generates images via the **pollinations.ai** API.
 
 (You can add the official badge/logo here once you decide which asset to use.)
 
+## GitHub Pages demo
+Open `docs/` after enabling GitHub Pages (Settings → Pages → main branch → /docs).
+
 ## Features
 - `mig generate`: call Pollinations directly
 - `mig painter`: wrapper that saves to `/var/minis/attachments` and prints a Minis-renderable Markdown image tag
+- `docs/` demo: pure frontend that builds a public `gen.pollinations.ai/image/...` URL
 
 ## Install
 
@@ -70,6 +75,7 @@ Notes:
 - `src/generate.mjs`: core generator (from `pollinations-image-gen` skill)
 - `src/painter.mjs`: wrapper runner (from `painter-run` skill)
 - `bin/mig.mjs`: unified CLI entry
+- `docs/`: GitHub Pages demo site
 
 ## License
 MIT
