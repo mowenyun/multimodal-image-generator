@@ -59,29 +59,41 @@ if (/(打码|马赛克)/.test(finalPrompt)) {
   }
 }
 
-const skillScript = '/var/minis/skills/pollinations-image-gen/scripts/generate.mjs';
+// Use local generator in this repo
+const skillScript = path.resolve(process.cwd(), 'src/generate.mjs');
 if (!fs.existsSync(skillScript)) {
-  console.error('❌ 生图 skill 脚本不存在:', skillScript);
-  process.exit(2);
+  // fallback when executed from other cwd
+  const alt = path.resolve(path.dirname(new URL(import.meta.url).pathname), 'generate.mjs');
+  if (fs.existsSync(alt)) {
+    // eslint-disable-next-line no-global-assign
+    // skillScript = alt
+  }
 }
 
-// Call skill generator (stream output + timeout)
+const generatorScript = (() => {
+  const p1 = path.resolve(process.cwd(), 'src/generate.mjs');
+  if (fs.existsSync(p1)) return p1;
+  const p2 = path.resolve(path.dirname(new URL(import.meta.url).pathname), 'generate.mjs');
+  if (fs.existsSync(p2)) return p2;
+  console.error('❌ generator script not found (src/generate.mjs)');
+  process.exit(2);
+})();
+
+// Call generator
 const genArgs = [
-  skillScript,
+  generatorScript,
   '--prompt', finalPrompt,
   '--model', model,
   '--width', String(width),
   '--height', String(height),
   '--attachments', 'true',
 ];
-if (seed !== undefined && seed !== true) {
-  genArgs.push('--seed', String(seed));
-}
+if (seed !== undefined && seed !== true) genArgs.push('--seed', String(seed));
+
 // Pass timeout/retries to generator (fetch-level)
 genArgs.push('--timeout_ms', String(timeoutSec * 1000));
 genArgs.push('--retries', String(retries));
 
-// Call skill generator
 const r = spawnSync('node', ['--no-warnings', ...genArgs], {
   encoding: 'utf8',
   timeout: timeoutSec * 1000,
@@ -104,8 +116,6 @@ if (r.status !== 0) {
 }
 
 const out = r.stdout || '';
-const errOut = r.stderr || '';
-
 const fileLine = out.split('\n').find(l => l.trim().startsWith('File:')) || '';
 const minisLine = out.split('\n').find(l => l.trim().startsWith('Minis:')) || '';
 const attachmentPath = fileLine.replace('File:', '').trim();
@@ -122,8 +132,6 @@ console.log('\n✅ 生成成功');
 // Print a Markdown image tag so Minis chat can render it inline
 const renderUrl = minisLink || `minis://attachments/${path.basename(attachmentPath)}`;
 console.log(`![painter](${renderUrl})`);
-
-// keep also a plain link line for copy
 console.log(`📸 查看图片: ${renderUrl}`);
 
 // Optional Telegram

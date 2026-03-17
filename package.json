@@ -5,12 +5,16 @@
   "type": "module",
   "description": "A multimodal image generator app powered by pollinations.ai",
   "license": "MIT",
+  "bin": {
+    "mig": "./bin/mig.mjs"
+  },
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "generate": "node generate.mjs",
-    "painter": "node painter.mjs",
+    "generate": "node src/generate.mjs",
+    "painter": "node src/painter.mjs",
+    "mig": "node bin/mig.mjs",
     "test": "node -e \"console.log('ok')\""
   }
 }
