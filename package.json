@@ -1,0 +1,16 @@
+{
+  "name": "multimodal-image-generator",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "A multimodal image generator app powered by pollinations.ai",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "generate": "node generate.mjs",
+    "painter": "node painter.mjs",
+    "test": "node -e \"console.log('ok')\""
+  }
+}
